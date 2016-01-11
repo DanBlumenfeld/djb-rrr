@@ -75,7 +75,7 @@ class DJB_RRR {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
+        $this->register_custom_post_types();
 	}
 
 	/**
@@ -122,6 +122,54 @@ class DJB_RRR {
 		$this->loader = new DJB_RRR_Loader();
 
 	}
+
+    /**
+	 * Register the route post type
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+    private function register_route_post_type() {
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/routes/class-djb-rrr-route-post-type.php';
+        $route_post_registration = new Route_Post_Type;
+        $route_post_registration->init();
+    }
+    
+    /**
+	 * Register the ride post type
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+    private function register_ride_post_type() {
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/rides/class-djb-rrr-ride-post-type.php';
+        $ride_post_registration = new Ride_Post_Type;
+        $ride_post_registration->init();
+    }
+    
+    /**
+	 * Register the report post type
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+    private function register_report_post_type() {
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/reports/class-djb-rrr-report-post-type.php';
+        $report_post_registration = new Report_Post_Type;
+        $report_post_registration->init();
+    }
+    
+    /**
+	 * Register the custom post types used by this plugin
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+    private function register_custom_post_types() {
+        $this->register_route_post_type();
+        $this->register_ride_post_type();
+        $this->register_report_post_type();
+    }
 
 	/**
 	 * Define the locale for this plugin for internationalization.
