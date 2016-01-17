@@ -25,8 +25,8 @@ class Route_Metabox_Helper {
 	 * Hook into the appropriate actions when the class is constructed.
 	 */
 	public function __construct() {
-		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
-		add_action( 'save_post', array( $this, 'save' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );        
+		add_action( 'save_post', array( $this, 'save' ), 10, 2);
 	}
 
 	/**
@@ -40,7 +40,7 @@ class Route_Metabox_Helper {
 				,__( 'Route Information', 'djb-rrr' )
 				,array( $this, 'render_meta_box_content' )
 				,$post_type
-				,'normal'
+				,'side'
 				,'high'
 			);
 		}
@@ -51,13 +51,13 @@ class Route_Metabox_Helper {
 	 *
 	 * @param int $post_id The ID of the post being saved.
 	 */
-	public function save( $post_id ) {
+	public function save( $post_id , $post) {
 	
 		/*
 		 * We need to verify this came from the our screen and with proper authorization,
 		 * because save_post can be triggered at other times.
 		 */
-
+         
 		// Check if our nonce is set.
 		if ( ! isset( $_POST['djb_rrr_inner_custom_box_nonce'] ) )
 			return $post_id;
@@ -77,13 +77,17 @@ class Route_Metabox_Helper {
 		if ( ! current_user_can( 'edit_post', $post_id ) )
 		    return $post_id;
 
-		/* OK, its safe for us to save the data now. */
+		/* OK, its safe for us to save the data now. Call all the registered route types to do their thing.*/
 
-		// Sanitize the user input.
-		//$mydata = sanitize_text_field( $_POST['myplugin_new_field'] );
-
+        $type_id = sanitize_text_field( $_POST['djb_rrr_route_type_val'] );
+        
 		// Update the meta field.
-		//update_post_meta( $post_id, '_my_meta_value_key', $mydata );
+		update_post_meta( $post_id, '_djb_rrr_route_type_id', $type_id );
+
+        do_action('djb-rrr-save-route', $post_id, $post);
+
+        
+
 	}
 
 
@@ -96,17 +100,57 @@ class Route_Metabox_Helper {
 	
 		// Add an nonce field so we can check for it later.
 		wp_nonce_field( 'djb_rrr_inner_custom_box', 'djb_rrr_inner_custom_box_nonce' );
+        
+        //Get current data, set up rendering of stuff
+        $currType = get_post_meta( $post->ID, '_djb_rrr_route_type_id', true );
+        $currDistance = get_post_meta( $post->ID, '_djb_rrr_route_distance', true );
+        //die(var_dump($currDistance));      
+        $general_markup = ''; //Should be the contents of a two-column <tr>
+        $type_combo = '<select id="djb_rrr_route_type_val" name="djb_rrr_route_type_val">';
+        $type_specific_markup = '';
+        
+        //Get the known route types. Will be an array of Route_Type_Data instances
+        $route_types = array();         
+        $route_types_filtered = apply_filters('djb-rrr-route-type-data', $route_types, $post->ID);  
+        foreach($route_types_filtered as $curr_data){
+            if(get_class($curr_data) === 'Route_Type_Data') {
+                //process general markup
+                $general_markup .= $curr_data->general_metabox_markup;
 
-		// Use get_post_meta to retrieve an existing value from the database.
-		//$value = get_post_meta( $post->ID, '_my_meta_value_key', true );
+                //process type
+                $selected = '';
+                if($currType === $curr_data->type_id){
+                    $selected .= ' selected ';
+                }
+                $new_option = sprintf('<option value="%s"%s>%s</option>', $curr_data->type_id, $selected, $curr_data->type_friendly_name);
+                $type_combo .= $new_option;
 
-		// Display the form, using the current value.
-		echo '<label for="myplugin_new_field">Testing</label>';
-        /*
-		_e( 'Description for this field', 'myplugin_textdomain' );
-		echo '</label> ';
-		echo '<input type="text" id="myplugin_new_field" name="myplugin_new_field"';
-		echo ' value="' . esc_attr( $value ) . '" size="25" />';
-        */
+                //process type-specific markup
+                $type_specific_markup .= $curr_data->type_specific_markup;
+            }
+        }   
+                
+        $type_combo .= '</select>'; //Close the type combo
+        
+        //Render
+        ?>
+        <table>
+            <tr>
+                <td colspan="2"><?php _e( 'Route Information', 'djb-rrr' ); ?></td>
+            </tr>
+            <?php echo $general_markup ?>
+            <tr>
+                <td><?php _e( 'Route Type', 'djb-rrr' ); ?></td>
+                <td>
+                    <?php echo $type_combo ?>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <?php echo $type_specific_markup ?>
+                </td>
+            </tr>
+        </table>
+<?php
 	}
 }

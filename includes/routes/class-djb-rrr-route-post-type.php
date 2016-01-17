@@ -29,6 +29,7 @@
 	public function init() {
 		add_action( 'init', array( $this, 'register' ) );
 	}
+
 	/**
 	 * Initiate registrations of post type and taxonomies.
 	 *
@@ -124,5 +125,29 @@
 		$args = apply_filters( 'route_post_type_category_args', $args );
 		register_taxonomy( $this->taxonomies[0], $this->post_type, $args );
 	}
+    
 }    
 
+
+ /**
+ * Data specific to a type of Route
+ *
+ * This is used to define the data for a given route type.
+ * It includes:
+ *    the unique type id (example: rwgps, for the RideWithGPS route type)
+ *    the friendly/localized name of the type for display (example: 'RideWithGPS')
+ *    any markup to be added to the metabox for ALL route types (example: ride distance)
+ *    any markup to be added to the metabox only for routes of this type (example: in a RideWithGPS route, we need the id of the route from RideWithGPS.com)
+ * @since      1.0.0
+ * @package    DJB_RRR
+ * @subpackage DJB_RRR/includes/routes
+ * @author     Dan Blumenfeld <dan@danieljblumenfeld.com>
+ */
+class Route_Type_Data {
+
+    public $type_id;
+    public $type_friendly_name;
+    public $general_metabox_markup;
+    public $type_specific_metabox_markup;
+        
+}

@@ -133,6 +133,15 @@ class DJB_RRR {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/routes/class-djb-rrr-route-post-type.php';
         $route_post_registration = new Route_Post_Type;
         $route_post_registration->init();
+
+        //Add the default route type
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/routes/class-djb-rrr-route-type-general.php';
+        $route_type_general = new Route_Type_General(); //The constructor will handle hooking up actions and filters as needed
+
+        //Add the RWGPS route type
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/routes/class-djb-rrr-route-type-RWGPS.php';
+        $route_type_general = new Route_Type_RWGPS(); //The constructor will handle hooking up actions and filters as needed
+
         if( is_admin() ){
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/routes/class-djb-rrr-route-metabox.php';
             $route_meta_helper = new Route_Metabox_Helper();
