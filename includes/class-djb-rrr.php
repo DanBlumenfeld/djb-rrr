@@ -133,6 +133,10 @@ class DJB_RRR {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/routes/class-djb-rrr-route-post-type.php';
         $route_post_registration = new Route_Post_Type;
         $route_post_registration->init();
+        if( is_admin() ){
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/routes/class-djb-rrr-route-metabox.php';
+            $route_meta_helper = new Route_Metabox_Helper();
+        }
     }
     
     /**
