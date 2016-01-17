@@ -15,7 +15,7 @@ class Route_Type_RWGPS {
         $default_route_type->type_id ='RWGPS';
         $default_route_type->type_friendly_name = 'Ride With GPS';
         $default_route_type->general_metabox_markup = '';
-        $default_route_type->type_specific_markup = sprintf('<div id="djb_rrr_rwgps_metadata">RWGPS Route ID:<input type="text" id="djb_rrr_rwgps_id_val" name="djb_rrr_rwgps_id_val" value="%s" /></div>', $currId);
+        $default_route_type->type_specific_markup = sprintf('<div class="hideable_route_type_data" data-route-type="%s">RWGPS Route ID:<input type="text" id="djb_rrr_rwgps_id_val" name="djb_rrr_rwgps_id_val" value="%s" /></div>', $default_route_type->type_id, $currId);
         $route_types[] = $default_route_type;
         
         return $route_types;

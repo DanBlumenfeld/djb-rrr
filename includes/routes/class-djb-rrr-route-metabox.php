@@ -122,7 +122,7 @@ class Route_Metabox_Helper {
                 if($currType === $curr_data->type_id){
                     $selected .= ' selected ';
                 }
-                $new_option = sprintf('<option value="%s"%s>%s</option>', $curr_data->type_id, $selected, $curr_data->type_friendly_name);
+                $new_option = sprintf('<option data-route-type="%s" value="%s"%s>%s</option>', $curr_data->type_id, $curr_data->type_id, $selected, $curr_data->type_friendly_name);
                 $type_combo .= $new_option;
 
                 //process type-specific markup
