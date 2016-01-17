@@ -3,11 +3,11 @@
 class Route_Type_General {
     
 	public function __construct() {
-		add_filter('djb-rrr-route-type-data', array($this, 'add_general_route_type_data'),10, 2 );
+		add_filter('djb-rrr-route-type-data', array($this, 'add_general_route_type_data'), 10, 3 );
         add_action('djb-rrr-save-route', array( $this, 'save'), 10, 2);
 	}
 
-    function add_general_route_type_data($route_types, $post_id) {     
+    function add_general_route_type_data($route_types, $post_id, $currType) {     
            
         $curr_distance = get_post_meta( $post_id, '_djb_rrr_route_distance', true ); 
 

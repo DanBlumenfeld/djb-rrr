@@ -111,7 +111,7 @@ class Route_Metabox_Helper {
         
         //Get the known route types. Will be an array of Route_Type_Data instances
         $route_types = array();         
-        $route_types_filtered = apply_filters('djb-rrr-route-type-data', $route_types, $post->ID);  
+        $route_types_filtered = apply_filters('djb-rrr-route-type-data', $route_types, $post->ID, $currType);  
         foreach($route_types_filtered as $curr_data){
             if(get_class($curr_data) === 'Route_Type_Data') {
                 //process general markup
