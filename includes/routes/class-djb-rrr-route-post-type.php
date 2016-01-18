@@ -134,14 +134,17 @@
 
     function display_route_summary($atts, $content = NULL) {
         global $post;
-        $output = "";
-        return apply_filters('djb-rrr-render-route-summary', $output, $post->ID);
+        $output = '<div class="djb-rrr-route-summary">';
+        $output = apply_filters('djb-rrr-render-route-summary', $output, $post->ID);
+        $output .= '</div>';
+        return $output;
     }
 
     function display_route_details($atts, $content = NULL) {
-        global $post; 
-        $output = "";       
-        return apply_filters('djb-rrr-render-route-details', $output, $post->ID);
+        global $post;
+        $output = '';
+        $output = apply_filters('djb-rrr-render-route-details', $output, $post->ID);
+        return $output;
     }
     
 }    

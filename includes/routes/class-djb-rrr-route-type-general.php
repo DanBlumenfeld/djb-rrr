@@ -14,7 +14,7 @@ class Route_Type_General {
 
         $default_route_type = new Route_Type_Data();
         $default_route_type->type_id ='';
-        $default_route_type->type_friendly_name = _e( 'General', 'djb-rrr' );
+        $default_route_type->type_friendly_name = 'General';
         $default_route_type->general_metabox_markup = sprintf('<td>Distance:</td><td><input type="text" id="djb_rrr_distance_val" name="djb_rrr_distance_val" value="%s" /></td>', $curr_distance);
         $default_route_type->type_specific_markup = '';
         $route_types[] = $default_route_type;
@@ -29,9 +29,8 @@ class Route_Type_General {
 		update_post_meta( $post_id, '_djb_rrr_route_distance', $distance );
     }
 
-    function render_route_summary($output, $post_id) {
-        
-        //TODO: render general information
+    function render_route_summary($output, $post_id) {        
+        //Always render general information
         $output .= '<div>General route summary placeholder</div>';
         return $output;
     }

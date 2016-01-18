@@ -12,6 +12,23 @@ A Wordpress plugin to help manage cycling routes, rides, and ride reports
 
 == Description ==
 
+Next Steps: 
+-Finish the RWGPS route class
+    -Localize
+-Finish the General route class
+    -Make Distance handle miles versus kilometers
+    -Add Start Location
+    -Summary data: display distance, start location
+    -Localize
+-Change route type label (General, RWGPS) to Route source
+-Add route types (WPW, Rando, Bike Rides Out of Pittsburgh) with associated general data. Implement as separate plugins
+-Add simple theme demonstrating formatting
+-Install on Pgh Randos, rbr-pgh.com, WPW, etc. 
+-Add new route sources (MapMyRide, Strava, Garmin, etc)
+-Add doc listing CSS classes
+-Add doc listing shortcodes
+
+
 
 == Installation ==
 
