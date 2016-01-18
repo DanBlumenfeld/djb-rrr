@@ -79,6 +79,8 @@ class Route_Metabox_Helper {
 
 		/* OK, its safe for us to save the data now. Call all the registered route types to do their thing.*/
 
+       // die(var_dump($_POST));
+
         $type_id = sanitize_text_field( $_POST['djb_rrr_route_type_val'] );
         
 		// Update the meta field.
@@ -103,9 +105,7 @@ class Route_Metabox_Helper {
         
         //Get current data, set up rendering of stuff
         $currType = get_post_meta( $post->ID, '_djb_rrr_route_type_id', true );
-        $currDistance = get_post_meta( $post->ID, '_djb_rrr_route_distance', true );
-        //die(var_dump($currDistance));      
-        $general_markup = ''; //Should be the contents of a two-column <tr>
+        $general_markup = ''; 
         $type_combo = '<select id="djb_rrr_route_type_val" name="djb_rrr_route_type_val">';
         $type_specific_markup = '';
         
@@ -135,9 +135,6 @@ class Route_Metabox_Helper {
         //Render
         ?>
         <table>
-            <tr>
-                <td colspan="2"><?php _e( 'Route Information', 'djb-rrr' ); ?></td>
-            </tr>
             <?php echo $general_markup ?>
             <tr>
                 <td><?php _e( 'Route Type', 'djb-rrr' ); ?></td>

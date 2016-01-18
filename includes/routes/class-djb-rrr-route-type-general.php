@@ -14,7 +14,7 @@ class Route_Type_General {
         $default_route_type = new Route_Type_Data();
         $default_route_type->type_id ='';
         $default_route_type->type_friendly_name = 'General';
-        $default_route_type->general_metabox_markup = sprintf('<td>Distance:</td><td><input type="text" id="djb_rrr_distance_val name="djb_rrr_distance_val" value="%s" /></td>', $curr_distance);
+        $default_route_type->general_metabox_markup = sprintf('<td>Distance:</td><td><input type="text" id="djb_rrr_distance_val" name="djb_rrr_distance_val" value="%s" /></td>', $curr_distance);
         $default_route_type->type_specific_markup = '';
         $route_types[] = $default_route_type;
         
@@ -24,7 +24,6 @@ class Route_Type_General {
      function save( $post_id, $post ) {
         // Sanitize the user input.
 		$distance = sanitize_text_field( $_POST['djb_rrr_distance_val'] );
-
 		// Update the meta field.
 		update_post_meta( $post_id, '_djb_rrr_route_distance', $distance );
     }
