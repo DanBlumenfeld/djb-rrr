@@ -16,9 +16,6 @@ Next Steps:
 -Finish the RWGPS route class
     -Localize
 -Finish the General route class
-    -Make Distance handle miles versus kilometers
-    -Add Start Location
-    -Summary data: display distance, start location
     -Localize
 -Change route type label (General, RWGPS) to Route source
 -Add route types (WPW, Rando, Bike Rides Out of Pittsburgh) with associated general data. Implement as separate plugins

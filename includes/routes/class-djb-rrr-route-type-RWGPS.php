@@ -109,13 +109,13 @@ class Route_Type_RWGPS {
                 $output .= sprintf('<span class="dbj-rrr-link">%s</span>', do_shortcode($shortcode));
                 //Cue sheet
                 $shortcode = sprintf('[djb-rwgps-cuesheet route=%s]', $currId);
-                $output .= sprintf('<span class="dbj-rrr-link">%s</span>', do_shortcode($shortcode));
+                $output .= sprintf(' - <span class="dbj-rrr-link">%s</span>', do_shortcode($shortcode));
                 //GPX
                 $shortcode = sprintf('[djb-rwgps-gpx route=%s]', $currId);
-                $output .= sprintf('<span class="dbj-rrr-link">%s</span>', do_shortcode($shortcode));
+                $output .= sprintf(' - <span class="dbj-rrr-link">%s</span>', do_shortcode($shortcode));
                 //TCX
                 $shortcode = sprintf('[djb-rwgps-tcx route=%s]', $currId);
-                $output .= sprintf('<span class="dbj-rrr-link">%s</span>', do_shortcode($shortcode));
+                $output .= sprintf(' - <span class="dbj-rrr-link">%s</span>', do_shortcode($shortcode));
                 //Map thumbnail
                 $shortcode = sprintf('[djb-rwgps-map route=%s]', $currId);
                 $output .= sprintf('<div class="dbj-rrr-map">%s</div>', do_shortcode($shortcode));

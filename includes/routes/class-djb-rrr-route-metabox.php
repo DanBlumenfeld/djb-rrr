@@ -136,8 +136,9 @@ class Route_Metabox_Helper {
         ?>
         <table>
             <?php echo $general_markup ?>
+            <tr><td colspan="2"><hr /></td></tr>
             <tr>
-                <td><?php _e( 'Route Type', 'djb-rrr' ); ?></td>
+                <td><?php _e( 'Route Source', 'djb-rrr' ); ?></td>
                 <td>
                     <?php echo $type_combo ?>
                 </td>
