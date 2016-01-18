@@ -14,7 +14,7 @@
  /**
  * The core route class.
  *
- * This is used to register the route post type and taxonomies
+ * This is used to register the route post type, taxonomies, and related data
  * @since      1.0.0
  * @package    DJB_RRR
  * @subpackage DJB_RRR/includes/routes
@@ -39,6 +39,7 @@
 	public function register() {
 		$this->register_post_type();
 		$this->register_taxonomy_category();
+		$this->register_shortcodes();
 	}
 	/**
 	 * Register the custom post type.
@@ -125,6 +126,23 @@
 		$args = apply_filters( 'route_post_type_category_args', $args );
 		register_taxonomy( $this->taxonomies[0], $this->post_type, $args );
 	}
+
+    protected function register_shortcodes() {
+        add_shortcode('route_summary', array($this, 'display_route_summary'));
+        add_shortcode('route_details', array($this, 'display_route_details'));
+    }
+
+    function display_route_summary($atts, $content = NULL) {
+        global $post;
+        $output = "";
+        return apply_filters('djb-rrr-render-route-summary', $output, $post->ID);
+    }
+
+    function display_route_details($atts, $content = NULL) {
+        global $post; 
+        $output = "";       
+        return apply_filters('djb-rrr-render-route-details', $output, $post->ID);
+    }
     
 }    
 

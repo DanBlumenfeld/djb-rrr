@@ -5,6 +5,8 @@ class Route_Type_RWGPS {
 	public function __construct() {
 		add_filter('djb-rrr-route-type-data', array($this, 'add_rwgps_route_type_data'), 10, 3);
         add_action('djb-rrr-save-route', array( $this, 'save'), 10, 2);
+        add_filter('djb-rrr-render-route-summary', array( $this, 'render_route_summary'), 10, 2);
+        add_filter('djb-rrr-render-route-details', array( $this, 'render_route_details'), 10, 2);
 	}
 
     function add_rwgps_route_type_data($route_types, $post_id, $currType) {     
@@ -35,4 +37,19 @@ class Route_Type_RWGPS {
 		update_post_meta( $post_id, '_djb_rrr_rwgps_id', $rwgps_id );
 
     }
+    
+    function render_route_summary($output, $post_id) {
+        
+        //TODO: render general information
+        $output .= '<div>RWGPS Summary placeholder</div>';
+        return $output;
+    }
+
+    function render_route_details($output, $post_id) {
+        
+        //TODO: render detail information: link to RWGPS, map, elevation, cue sheet
+        $output .= '<div>RWGPS Detail placeholder</div>';
+        return $output;
+    }
+    
 }
