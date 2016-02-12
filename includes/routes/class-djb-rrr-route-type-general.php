@@ -26,6 +26,7 @@ class Route_Type_General {
         $default_route_type = new Route_Type_Data();
         $default_route_type->type_id ='';
         $default_route_type->type_friendly_name = 'Unspecified';
+        $default_route_type->is_route_provider = 'true';
         //distance 
         $default_route_type->general_metabox_markup = sprintf('<tr><td><label for="djb_rrr_distance_val">Distance:</label></td><td><input id="djb_rrr_distance_val" name="djb_rrr_distance_val" value="%s" />', $curr_distance);
         //units

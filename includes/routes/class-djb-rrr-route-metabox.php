@@ -40,7 +40,7 @@ class Route_Metabox_Helper {
 				,__( 'Route Information', 'djb-rrr' )
 				,array( $this, 'render_meta_box_content' )
 				,$post_type
-				,'side'
+				,'normal'
 				,'high'
 			);
 		}
@@ -117,13 +117,16 @@ class Route_Metabox_Helper {
                 //process general markup
                 $general_markup .= $curr_data->general_metabox_markup;
 
-                //process type
-                $selected = '';
-                if($currType === $curr_data->type_id){
-                    $selected .= ' selected ';
+                //process route type
+                if($curr_data->is_route_provider == 'true')
+                {
+                    $selected = '';
+                    if($currType === $curr_data->type_id){
+                        $selected .= ' selected ';
+                    }
+                    $new_option = sprintf('<option data-route-type="%s" value="%s"%s>%s</option>', $curr_data->type_id, $curr_data->type_id, $selected, $curr_data->type_friendly_name);
+                    $type_combo .= $new_option;
                 }
-                $new_option = sprintf('<option data-route-type="%s" value="%s"%s>%s</option>', $curr_data->type_id, $curr_data->type_id, $selected, $curr_data->type_friendly_name);
-                $type_combo .= $new_option;
 
                 //process type-specific markup
                 $type_specific_markup .= $curr_data->type_specific_markup;

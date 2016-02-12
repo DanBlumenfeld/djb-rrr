@@ -52,6 +52,7 @@ class Route_Type_RWGPS {
         
         $default_route_type = new Route_Type_Data();
         $default_route_type->type_id ='RWGPS';
+        $default_route_type->is_route_provider = 'true';
         $hideStyle = 'style="display: none"';
         if($currType === $default_route_type->type_id)
         {

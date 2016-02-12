@@ -170,5 +170,6 @@ class Route_Type_Data {
     public $type_friendly_name;
     public $general_metabox_markup;
     public $type_specific_metabox_markup;
+    public $is_route_provider;
         
 }

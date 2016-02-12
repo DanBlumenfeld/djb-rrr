@@ -17,7 +17,6 @@ Next Steps:
     -Localize
 -Finish the General route class
     -Localize
--Change route type label (General, RWGPS) to Route source
 -Add route types (WPW, Rando, Bike Rides Out of Pittsburgh) with associated general data. Implement as separate plugins
 -Add simple theme demonstrating formatting
 -Install on Pgh Randos, rbr-pgh.com, WPW, etc. 
