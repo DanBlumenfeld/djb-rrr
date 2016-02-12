@@ -140,7 +140,11 @@ class DJB_RRR {
 
         //Add the RWGPS route type
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/routes/class-djb-rrr-route-type-RWGPS.php';
-        $route_type_general = new Route_Type_RWGPS(); //The constructor will handle hooking up actions and filters as needed
+        $route_type_RWGPS = new Route_Type_RWGPS(); //The constructor will handle hooking up actions and filters as needed
+        
+        //Add the Garmin route type
+       require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/routes/class-djb-rrr-route-type-Garmin.php';
+       $route_type_Garmin = new Route_Type_Garmin(); //The constructor will handle hooking up actions and filters as needed
 
         if( is_admin() ){
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/routes/class-djb-rrr-route-metabox.php';
