@@ -40,6 +40,7 @@
 		$this->register_post_type();
 		$this->register_taxonomy_category();
 		$this->register_shortcodes();
+        $this->register_archive();
 	}
 	/**
 	 * Register the custom post type.
@@ -130,6 +131,27 @@
     protected function register_shortcodes() {
         add_shortcode('route_summary', array($this, 'display_route_summary'));
         add_shortcode('route_details', array($this, 'display_route_details'));
+    }
+
+    protected function register_archive(){
+        add_filter('template_include', array($this, 'routes_template'));
+    }
+
+    function routes_template( $template ) {
+        if ( is_post_type_archive('route') ) {
+            $theme_files = array('archive-route.php', 'djb-rrr/archive-route.php');
+            $exists_in_theme = locate_template($theme_files, false);
+            if ( $exists_in_theme != '' ) {
+                return $exists_in_theme;
+            } else {                
+                $template_path = plugin_dir_path( __FILE__ ) . '../../public/archive-route.php';
+                echo($template_path);
+                return $template_path;
+                
+            }
+        }
+        
+        return $template;
     }
 
     function display_route_summary($atts, $content = NULL) {
