@@ -2,13 +2,13 @@
 /**
  * The Template for displaying all single posts.
  *
- * @package Blain
+ * @package DJB_RRR
  */
 
 get_header(); ?>
 
-	<div id="primary" class="content-area col-md-9">
-		<main id="main" class="site-main" role="main">
+		<div id="container">
+			<div id="content" role="main">
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
@@ -22,7 +22,7 @@ get_header(); ?>
 
 		<?php endwhile; // end of the loop. ?>
 
-		</main><!-- #main -->
+		</div><!-- #main -->
 	</div><!-- #primary -->
 
 <?php get_sidebar(); ?>

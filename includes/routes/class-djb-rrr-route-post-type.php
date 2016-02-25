@@ -146,7 +146,6 @@
             $template_path = plugin_dir_path( __FILE__ ) . '../../public/archive-route.php';
         }
         elseif( is_tax('route-category') ){
-            echo 'In taxonomy route...';
             $theme_files = array('taxonomy-route.php', 'djb-rrr/taxonomy-route.php');
             $template_path = plugin_dir_path( __FILE__ ) . '../../public/taxonomy-route.php';
         }
