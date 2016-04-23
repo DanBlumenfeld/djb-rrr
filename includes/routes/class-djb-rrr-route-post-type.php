@@ -40,6 +40,7 @@
 		$this->register_post_type();
 		$this->register_taxonomy_category();
 		$this->register_shortcodes();
+        $this->register_archive();
 	}
 	/**
 	 * Register the custom post type.
@@ -125,11 +126,46 @@
 		);
 		$args = apply_filters( 'route_post_type_category_args', $args );
 		register_taxonomy( $this->taxonomies[0], $this->post_type, $args );
+        register_taxonomy_for_object_type($this->taxonomies[0], $this->post_type);
 	}
 
     protected function register_shortcodes() {
         add_shortcode('route_summary', array($this, 'display_route_summary'));
         add_shortcode('route_details', array($this, 'display_route_details'));
+    }
+
+    protected function register_archive(){
+        add_filter('template_include', array($this, 'add_builtin_template'));
+    }
+
+    function add_builtin_template( $template ) {
+        $theme_files = array();
+        $template_path = '';
+        if ( is_post_type_archive('route') ) {
+            $theme_files = array('archive-route.php', 'djb-rrr/archive-route.php');
+            $template_path = plugin_dir_path( __FILE__ ) . '../../public/archive-route.php';
+        }
+        elseif( is_tax('route-category') ){
+            $theme_files = array('taxonomy-route.php', 'djb-rrr/taxonomy-route.php');
+            $template_path = plugin_dir_path( __FILE__ ) . '../../public/taxonomy-route.php';
+        }
+        
+        elseif( is_singular( 'route' ) ) {
+            $theme_files = array('single-route.php', 'djb-rrr/single-route.php');
+            $template_path = plugin_dir_path( __FILE__ ) . '../../public/single-route.php';
+        }
+        
+
+        if(count($theme_files) > 0) { //We use the presence of theme files to check as an indicator that we might want to inject a template. If we wanted to always inject, we'd need to do something different.
+             $exists_in_theme = locate_template($theme_files, false);
+             if ( $exists_in_theme != '' ) {
+                 return $exists_in_theme;
+             } else {                
+                return $template_path;               
+             }
+        }
+        
+        return $template;
     }
 
     function display_route_summary($atts, $content = NULL) {
