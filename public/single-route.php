@@ -14,7 +14,7 @@ get_header(); ?>
 
         <h1 class="entry-title"><?php the_title(); ?></h1>
 			
-        <?php echo do_shortcode('[route_summary]') ?>
+        <?php echo do_shortcode('[route_summary suppress_thumbnail="true"]') ?>
 
         <?php the_content(); ?>
 

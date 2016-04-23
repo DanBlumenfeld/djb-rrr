@@ -29,7 +29,7 @@ class Route_Type_RWGPS {
         add_action('djb-rrr-save-route', array( $this, 'save'), 10, 2);
 
 		add_filter('djb-rrr-route-type-data', array($this, 'add_rwgps_route_type_data'), 10, 3);
-        add_filter('djb-rrr-render-route-summary', array( $this, 'render_route_summary'), 10, 2);
+        add_filter('djb-rrr-render-route-summary', array( $this, 'render_route_summary'), 10, 3);
         add_filter('djb-rrr-render-route-details', array( $this, 'render_route_details'), 10, 2);
 
         //Note different prefix ('dbj-rwgps-' versus 'djb-rrr-'; this is to facilitate use of the generic RWGPS shortcodes outside of the RCubed plugin
@@ -40,6 +40,7 @@ class Route_Type_RWGPS {
         add_shortcode('djb-rwgps-cuesheet', array($this,'cuesheet_link_shortcode'));
         add_shortcode('djb-rwgps-gpx', array($this,'gpx_link_shortcode'));
         add_shortcode('djb-rwgps-tcx', array($this,'tcx_link_shortcode'));
+        add_shortcode('djb-rwgps-thumbnail', array($this,'thumbnail_shortcode'));
 	}
 
     /**
@@ -84,12 +85,16 @@ class Route_Type_RWGPS {
 	 * Render route summary information
 	 * 
 	 */
-    function render_route_summary($output, $post_id) {
+    function render_route_summary($output, $post_id, $suppress_thumbnail) {
         $currType = get_post_meta( $post_id, '_djb_rrr_route_type_id', true );
-        if($currType === 'RWGPS'){            
-            //TODO: render any general information?
-            //$output .= '<div>RWGPS Summary placeholder</div>';
+        $currId = get_post_meta( $post_id, '_djb_rrr_rwgps_id', true ); 
+
+        if(!empty($currId) && $suppress_thumbnail != 'true') {            
+            //render thumbnail
+            $shortcode = sprintf('[djb-rwgps-thumbnail route=%s]', $currId);
+            $output .= sprintf('<div class="djb-rrr-route-thumbnail">%s</div>', do_shortcode($shortcode));
         }
+
         return $output;
     }
 
@@ -202,5 +207,17 @@ class Route_Type_RWGPS {
         ), $atts, 'map'));
 
         return sprintf('<a href="http://ridewithgps.com/routes/%s.tcx">TCX</a>', $route);
+    }
+
+    /**
+	 * Embed a thumbnail of the RWGPS route for the supplied route id.
+	 * [djb-rwgps-thumnbnail route=1234567], resolves to <img src="https://images1.ridewithgps.com/routes/thumb/1234567.png" />
+	 */
+    function thumbnail_shortcode($atts) {
+        extract( shortcode_atts( array(
+            'route' => '0000000',
+        ), $atts, 'map'));
+
+        return sprintf('<img src="https://images1.ridewithgps.com/routes/thumb/%s.png" />', $route);
     }
 }

@@ -170,8 +170,11 @@
 
     function display_route_summary($atts, $content = NULL) {
         global $post;
+        extract( shortcode_atts( array(
+            'suppress_thumbnail' => 'false',
+        ), $atts, 'summary'));
         $output = '<div class="djb-rrr-route-summary">';
-        $output = apply_filters('djb-rrr-render-route-summary', $output, $post->ID);
+        $output = apply_filters('djb-rrr-render-route-summary', $output, $post->ID, $suppress_thumbnail);
         $output .= '</div>';
         return $output;
     }

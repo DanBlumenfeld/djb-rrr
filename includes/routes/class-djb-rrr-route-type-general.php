@@ -5,7 +5,7 @@ class Route_Type_General {
 	public function __construct() {
 		add_filter('djb-rrr-route-type-data', array($this, 'add_general_route_type_data'), 10, 3 );
         add_action('djb-rrr-save-route', array( $this, 'save'), 10, 2);        
-        add_filter('djb-rrr-render-route-summary', array( $this, 'render_route_summary'), 10, 2);
+        add_filter('djb-rrr-render-route-summary', array( $this, 'render_route_summary'), 10, 3);
 	}
 
     function add_general_route_type_data($route_types, $post_id, $currType) {     
